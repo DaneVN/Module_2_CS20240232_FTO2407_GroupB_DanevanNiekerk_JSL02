@@ -38,16 +38,26 @@ const addNewGoal = () => {
     if (duplicate === false) {
         const newGoal = document.createElement(`li`);
             newGoal.textContent = goalInput;
+            newGoal.setAttribute('id', goalInput.replace(/\s/g, "")) //remove all spaces to make it id appropriate
             goalList.appendChild(newGoal);
     }
 };
 
 document.querySelector(`#submitGoal`).addEventListener(`click`, addNewGoal);
 
-//remove the first li tag selector comes across
+//remove the goal with the id of the goal text content/prompted input form user
 document.querySelector(`#removeGoal`).addEventListener('click', function() {
-    document.querySelector(`li`).remove();
-})
+    // document.querySelector(`li`).remove();
+    const goalList = document.querySelector(`#goalList`);
+    const listChildren = goalList.children;
+    let goalRemove = prompt("Which Goal?");
+
+    for (let i = 0; i < listChildren.length; i++) {
+        if (listChildren[i].textContent === goalRemove) {
+            document.querySelector(`#goalList`).removeChild(goalList.children[i]) ;
+        } 
+    }
+});
 
 let waterIntake = 0;
 const updateWaterIntake = (change) => {
